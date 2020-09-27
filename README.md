@@ -1,7 +1,8 @@
 # space.ifel.maps
-Maps api for starpeace
 
 ![Publish package to GitHub Packages](https://github.com/starpeace-project/space.ifel.maps/workflows/Publish%20package%20to%20GitHub%20Packages/badge.svg)
+
+Maps api for starpeace
 
 This library is the maps api for the java starpeace rebuild.
 
