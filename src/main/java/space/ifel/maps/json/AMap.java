@@ -2,8 +2,9 @@ package space.ifel.maps.json;
 
 import space.ifel.maps.json.classes.maps.Map;
 import space.ifel.maps.json.classes.maps.Tileset;
+import space.ifel.maps.json.classes.tilesets.TileSet;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AMap {
@@ -15,7 +16,7 @@ public class AMap {
 
     protected int currentTileSet = 0;
 
-    protected HashMap<Integer, TileSet> tileSets;
+    protected List<TileSet> tileSets;
 
     protected void initialise(String jsonMapFile) {
         Map map = Loader.loadMap(jsonMapFile);
@@ -27,14 +28,13 @@ public class AMap {
             setTileHeight(map.getTileheight());
 
             List<Tileset> tilesets = map.getTilesets();
+            tileSets = new ArrayList<>();
 
             for (int i = 0; i < tilesets.size(); i++) {
-                Tileset tileSet = tilesets.get(i);
-                System.out.println(tileSet.getSource());
-                space.ifel.maps.json.classes.tilesets.TileSet loaded = Loader.loadTileSet(tileSet.getSource());
+                TileSet tileSet = Loader.loadTileSet(tilesets.get(i).getSource());
 
-                if (loaded != null) {
-                    tileSets.put(i, new TileSet(loaded));
+                if (tileSet != null) {
+                    tileSets.add(tileSet);
                 }
             }
         }
@@ -72,11 +72,15 @@ public class AMap {
         this.tileWidth = tileWidth;
     }
 
-    public TileSet getCurrentTileSet() {
+    public space.ifel.maps.json.classes.tilesets.TileSet getCurrentTileSet() {
         return tileSets.get(currentTileSet);
     }
 
     public void setCurrentTileSet(int currentTileSet) {
         this.currentTileSet = currentTileSet;
+    }
+
+    public List<TileSet> getTileSets() {
+        return this.tileSets;
     }
 }
